@@ -1,0 +1,24 @@
+{
+  "name": "next-esm-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "yalc:install": "yalc add mylib",
+    "dev:yalc": "yalc add mylib && rm -rf .next && next dev",
+    "build:yalc": "yalc add mylib && rm -rf .next && next build",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "20.2.2",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "mylib": "file:.yalc/mylib",
+    "next": "13.4.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.4"
+  }
+}

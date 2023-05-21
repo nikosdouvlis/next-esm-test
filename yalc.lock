@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "mylib": {
+      "signature": "f2a2819e2e0f64190ca86f9aac34a30e",
+      "file": true
+    }
+  }
+}

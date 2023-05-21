@@ -1,0 +1,33 @@
+{
+  "name": "mylib",
+  "version": "1.0.0",
+  "description": "",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsup",
+    "build:declarations": "tsc -p tsconfig.declarations.json",
+    "build:yalc": "npm run build && npm run yalc:push",
+    "yalc:push": "yalc push --replace"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "yalc": "^1.0.0-pre.53"
+  },
+  "dependencies": {
+    "next": "^13.4.3"
+  }
+}
