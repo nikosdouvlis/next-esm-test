@@ -1,3 +1,8 @@
+- The repo includes a sample `mylib` ESM/CJS package that should be completely treeshakable.
+- The `mylib` pkg exports some mock helpers (`authMiddleware`, `currentUser` etc). Note that these are not related to Clerk, simply noop utils that imports helpers from `next/server`
+- The rest is just a simple Nextjs app importing `mylib`
+- `mylib` is built using an extremely simple tsup config, local linking is done using `yalc`
+
 ## Setup
 1. Build and publish `mylib` locally using yalc
 ```
@@ -37,7 +42,7 @@ Building the app while using `authMiddlewareNoImport` will result in the followi
 
 
 
-## Issue 2 - defining `"type": "module"` in the lib's package.json affects ESM/CJS interopability
+## Issue 2 - defining `"type": "module"` in the lib's package.json affects ESM/CJS interoperability
 This example uses the mock `currentUser` and `currentUserDefaultImport`  functions from the `mylib` package. Thess functions simply import `NextRequest`, `NextResponse` from `next/server` as well as `headers` from `next/headers` and simply log their runtime values.
 
 `currentUser` imports the helpers using the recommended approach: 
@@ -77,4 +82,5 @@ currentUserDefaultImport runtime import values {
 ```
 (notice that NextResponse is the named export)
 
-In order to test this, please see the instructions in `src/layout.tsx`. Notice that this happens when the imported lib defined `"type": "module"`. Feel free to remove the corresponding lines from `mylib/package.esm.json`, rebuild, and see the difference. 
+In order to test this, please see the instructions in `src/layout.tsx`. Notice that this happens when the imported lib defined `"type": "module"`. Feel free to remove the corresponding lines from `mylib/package.esm.json`, rebuild, and see the difference.
+This might be related to: https://esbuild.github.io/content-types/#default-interop

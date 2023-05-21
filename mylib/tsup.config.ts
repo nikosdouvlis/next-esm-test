@@ -16,9 +16,7 @@ export default defineConfig((overrideOptions) => {
   };
 
   const onSuccess = (format: string) =>
-    `cp ./package.${format}.json ./dist/${format}/package.json && npm run build:declarations ${
-      overrideOptions.watch ? "&& npm run yalc:push" : ""
-    }`;
+    `cp ./package.${format}.json ./dist/${format}/package.json && npm run build:declarations`;
 
   const esm: Options = {
     ...common,
