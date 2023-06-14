@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { currentUser, currentUserDefaultImport } from "mylib";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,15 +13,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Notice the different runtime values of the imported `next/server` helpers.
-  // This happens when the 3rd party package defined a `type: module` in its package.json
-  //
-  // 1. Run `npm run build:yalc` after following the setup instructions in the README.md
-  // 2. Notice that both NAMED imports get the DEFAULT export from `next/server`
-  await currentUser();
-  // 3. Comment the above, and uncomment the line below. Run `npm run build:yalc` again
-  // 4. Notice that the default import is the default export and the NAMED imports have the correct values
-  // await currentUserDefaultImport();
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>

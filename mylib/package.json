@@ -13,10 +13,21 @@
       "require": "./dist/cjs/index.js"
     }
   },
+  "imports": {
+    "#crypto": {
+      "edge-light": "./dist/esm/crypto.js",
+      "worker": "./dist/esm/crypto.js",
+      "browser": "./dist/esm/crypto.js",
+      "node": "./dist/esm/crypto.js",
+      "import": "./dist/esm/crypto.js",
+      "require": "./dist/cjs/crypto.js",
+      "default": "./dist/esm/crypto.js"
+    }
+  },
   "scripts": {
-    "build": "rm -rf dist && tsup",
     "build:declarations": "tsc -p tsconfig.declarations.json",
-    "build:yalc": "npm run build && npm run yalc:push",
+    "build:yalc": "rm -rf dist && tsup && npm run yalc:push",
+    "build:nested:yalc": "rm -rf dist && tsup --env.copyPackageJson && npm run yalc:push",
     "yalc:push": "yalc push --replace"
   },
   "author": "",
@@ -27,7 +38,7 @@
     "typescript": "^5.0.4",
     "yalc": "^1.0.0-pre.53"
   },
-  "dependencies": {
-    "next": "^13.4.3"
+  "peerDependencies": {
+    "next": "13"
   }
 }

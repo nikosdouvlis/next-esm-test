@@ -5,7 +5,8 @@ import { defineConfig } from "tsup";
 import { name, version } from "./package.json";
 
 export default defineConfig((overrideOptions) => {
-  const isProd = overrideOptions.env?.NODE_ENV === "production";
+  const copyPackageJson = !!overrideOptions.env?.copyPackageJson;
+
   const common: Options = {
     entry: ["./src/**/*.{ts,tsx,js,jsx}"],
     bundle: false,
@@ -15,13 +16,23 @@ export default defineConfig((overrideOptions) => {
     legacyOutput: true,
   };
 
-  const onSuccess = (format: string) =>
-    `cp ./package.${format}.json ./dist/${format}/package.json && npm run build:declarations`;
+  const onSuccess = (format: string) => {
+    return [
+      copyPackageJson &&
+        `cp ./package.${format}.json ./dist/${format}/package.json`,
+      `npm run build:declarations`,
+    ]
+      .filter(Boolean)
+      .join(" && ");
+  };
 
   const esm: Options = {
     ...common,
     format: "esm",
     onSuccess: onSuccess("esm"),
+    define: {
+      __BUILD__: "'esm'",
+    },
   };
 
   const cjs: Options = {
@@ -29,6 +40,9 @@ export default defineConfig((overrideOptions) => {
     format: "cjs",
     outDir: "./dist/cjs",
     onSuccess: onSuccess("cjs"),
+    define: {
+      __BUILD__: "'cjs'",
+    },
   };
 
   return [esm, cjs];

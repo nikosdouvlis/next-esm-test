@@ -1,4 +1,11 @@
 {
-  "type": "commonjs",
-  "sideEffects": false
-}
+  "sideEffects": false,
+  "imports": {
+    "#crypto": {
+      "edge-light": "./crypto.js",
+      "worker": "./crypto.js",
+      "browser": "./crypto.js",
+      "node": "./crypto.js",
+      "default": "./crypto.js"
+    }
+  }}
